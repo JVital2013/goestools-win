@@ -66,9 +66,8 @@ curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/inclu
 ### Download and patch goestools
 ```
 cd C:\
-git clone --recursive https://github.com/JVital2013/goestools
+git clone -b windows --recursive https://github.com/JVital2013/goestools
 cd goestools
-git checkout windows
 ```
 
 ### Compile goestools
