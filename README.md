@@ -72,6 +72,8 @@ git checkout windows
 ```
 
 ### Compile goestools
+```
 mkdir build && cd build
 cmake .. "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -G "Visual Studio 17 2022"
 cmake --build . --config Release
+```
