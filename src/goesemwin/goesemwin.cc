@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include <windows.h>
 #include <util/error.h>
 #include <util/string.h>
 
@@ -29,8 +30,11 @@ std::string filename(const T& t);
 template<>
 std::string filename(const qbt::Fragment& f) {
   struct timespec ts;
-  auto rv = clock_gettime(CLOCK_REALTIME, &ts);
-  ASSERT(rv >= 0);
+  __int64 wintime;
+  GetSystemTimeAsFileTime((FILETIME*)&wintime);
+  wintime -= 116444736000000000i64;  //1jan1601 to 1jan1970
+  ts.tv_sec = wintime / 10000000i64;
+  ts.tv_nsec = wintime % 10000000i64 * 100;
 
   // Use filename pattern similar to the one Dartcom uses
   std::array<char, 128> tsbuf;

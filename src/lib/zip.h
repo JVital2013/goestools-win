@@ -1,7 +1,6 @@
 #pragma once
-
+#define PACK( __Declaration__ ) __pragma( pack(push, 1) ) __Declaration__ __pragma( pack(pop))
 #include <stdint.h>
-
 #include <istream>
 #include <memory>
 #include <vector>
@@ -41,7 +40,7 @@ protected:
   std::unique_ptr<std::istream> is_;
 
   // End Of Central Directory Record
-  struct __attribute__ ((__packed__)) eocd {
+  PACK(struct eocd {
     uint8_t signature[4];
     uint16_t diskNumber;
     uint16_t centralDirectoryDiskNumber;
@@ -50,12 +49,12 @@ protected:
     uint32_t centralDirectorySize;
     uint32_t centralDirectoryOffset;
     uint16_t zipCommentLength;
-  };
+  });
 
   eocd eocd_;
 
   // Central Directory File Header
-  struct __attribute__ ((__packed__)) cdfh {
+  PACK(struct cdfh {
     uint8_t signature[4];
     uint16_t versionMadeBy;
     uint16_t versionNeededToExtract;
@@ -73,12 +72,12 @@ protected:
     uint16_t internalFileAttributes;
     uint32_t externalFileAttributes;
     uint32_t relativeOffsetOflocalHeader;
-  };
+  });
 
   cdfh cdfh_;
 
   // Local File Header
-  struct __attribute__ ((__packed__)) lfh {
+  PACK(struct lfh {
     uint8_t signature[4];
     uint16_t versionNeededToExtract;
     uint16_t generalPurposeBitFlag;
@@ -90,7 +89,7 @@ protected:
     uint32_t uncompressedSize;
     uint16_t fileNameLength;
     uint16_t extraFieldLength;
-  };
+  });
 
   lfh lfh_;
 

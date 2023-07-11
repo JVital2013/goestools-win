@@ -92,11 +92,6 @@ void Airspy::start(const std::shared_ptr<Queue<Samples> >& queue) {
       auto rv = airspy_start_rx(dev_, &airspy_callback, this);
       ASSERT(rv == 0);
     });
-#ifdef __APPLE__
-  pthread_setname_np("airspy");
-#else
-  pthread_setname_np(thread_.native_handle(), "airspy");
-#endif
 }
 
 void Airspy::stop() {

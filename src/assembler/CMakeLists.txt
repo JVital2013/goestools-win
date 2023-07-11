@@ -1,6 +1,6 @@
 add_executable(packetinfo packetinfo.cc)
-target_link_libraries(packetinfo m stdc++)
-
+find_library(SZIP_LIB szip)
+find_library(AEC_LIB aec)
 add_library(assembler
   assembler.cc
   crc.cc
@@ -8,4 +8,4 @@ add_library(assembler
   transport_pdu.cc
   virtual_channel.cc
   )
-target_link_libraries(assembler lrit aec sz stdc++)
+target_link_libraries(assembler lrit ${SZIP_LIB} ${AEC_LIB})

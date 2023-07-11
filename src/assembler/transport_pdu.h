@@ -3,8 +3,6 @@
 #include <stdint.h>
 #include <vector>
 
-#include <unistd.h>
-
 namespace assembler {
 
 // Transport Protocol Data Unit

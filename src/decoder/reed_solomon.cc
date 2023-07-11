@@ -35,7 +35,7 @@ ReedSolomon::ReedSolomon() {
     // Bit-by-bit multiply is AND.
     // Output bit is sum of the bit-by-bit multiplications mod 2 (popcount() & 0x1)
     for (int j = 0; j < 8; j++) {
-      int v = (__builtin_popcount(i & tal[j]) & 0x1);
+      int v = (__popcnt(i & tal[j]) & 0x1);
       convToDual_[i] |= v << (7-j);
     }
 

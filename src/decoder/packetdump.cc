@@ -1,4 +1,4 @@
-#include <unistd.h>
+#include <io.h>
 
 #include <ctime>
 #include <fstream>
@@ -25,7 +25,7 @@ public:
   virtual size_t read(void* buf, size_t count) {
     size_t nread = 0;
     while (nread < count) {
-      auto rv = ::read(fd_, ((char*) buf) + nread, count - nread);
+      auto rv = _read(fd_, ((char*) buf) + nread, count - nread);
       // Terminate on error
       if (rv < 0) {
         perror("read");

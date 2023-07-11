@@ -1,5 +1,4 @@
 #include "costas.h"
-
 #include <cmath>
 
 #include <util/error.h>

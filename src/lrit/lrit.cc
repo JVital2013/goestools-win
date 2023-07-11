@@ -41,8 +41,8 @@ constexpr auto ccsdsToUnixDaysOffset = 4383;
 
 struct timespec TimeStampHeader::getUnix() const {
   struct timespec ts{0, 0};
-  uint16_t days = __builtin_bswap16(*reinterpret_cast<const uint16_t*>(&ccsds[1]));
-  uint32_t millis = __builtin_bswap32(*reinterpret_cast<const uint32_t*>(&ccsds[3]));
+  uint16_t days = _byteswap_ushort(*reinterpret_cast<const uint16_t*>(&ccsds[1]));
+  uint32_t millis = _byteswap_ulong(*reinterpret_cast<const uint32_t*>(&ccsds[3]));
   if (days > 0 || millis > 0) {
     ASSERT(days >= ccsdsToUnixDaysOffset);
     ts.tv_sec = ((days - ccsdsToUnixDaysOffset) * 24 * 60 * 60) + (millis / 1000);
@@ -84,7 +84,7 @@ std::map<int, int> getHeaderMap(const Buffer& b) {
   headerLength = (b[1] << 8) | b[2];
   ASSERT(headerLength == 16);
   memcpy(&totalHeaderLength, &b[4], 4);
-  totalHeaderLength = __builtin_bswap32(totalHeaderLength);
+  totalHeaderLength = _byteswap_ulong(totalHeaderLength);
 
   // Find LRIT headers
   std::map<int, int> m;
@@ -141,17 +141,17 @@ public:
   }
 
   void read(uint16_t* dst) {
-    *dst = __builtin_bswap16(*reinterpret_cast<const uint16_t*>(&b_[p_]));
+    *dst = _byteswap_ushort(*reinterpret_cast<const uint16_t*>(&b_[p_]));
     p_ += sizeof(uint16_t);
   }
 
   void read(uint32_t* dst) {
-    *dst = __builtin_bswap32(*reinterpret_cast<const uint32_t*>(&b_[p_]));
+    *dst = _byteswap_ulong(*reinterpret_cast<const uint32_t*>(&b_[p_]));
     p_ += sizeof(uint32_t);
   }
 
   void read(uint64_t* dst) {
-    *dst = __builtin_bswap64(*reinterpret_cast<const uint64_t*>(&b_[p_]));
+    *dst = _byteswap_uint64(*reinterpret_cast<const uint64_t*>(&b_[p_]));
     p_ += sizeof(uint64_t);
   }
 

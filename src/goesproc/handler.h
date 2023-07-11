@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "lrit/file.h"
+#include "util/strptime.h"
 
 // Handler is a base class for anything that can handle LRIT files.
 // There are multiple image handlers, text handlers, etc.

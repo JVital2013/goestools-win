@@ -1,5 +1,7 @@
+find_package(nanomsg CONFIG REQUIRED)
 add_executable(goespackets goespackets.cc options.cc)
 add_sanitizers(goespackets)
 install(TARGETS goespackets COMPONENT goestools RUNTIME DESTINATION bin)
-target_link_libraries(goespackets nanomsg packet_reader packet_writer util m stdc++)
+find_library(GETOPT_LIB getopt)
+target_link_libraries(goespackets nanomsg packet_reader packet_writer util ${GETOPT_LIB})
 target_link_libraries(goespackets version)

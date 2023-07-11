@@ -209,7 +209,7 @@ bool SessionPDU::append(
   }
 
   int rv = SZ_BufftoBuffDecompress(out, &outLen, dataIn, dataInLen, szParam_.get());
-  if (rv != AEC_OK) {
+  if (rv != SZ_OK) {
     return false;
   }
 

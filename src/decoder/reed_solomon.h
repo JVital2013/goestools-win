@@ -5,6 +5,7 @@ extern "C" {
 }
 
 #include <array>
+#include <intrin.h>
 
 namespace decoder {
 

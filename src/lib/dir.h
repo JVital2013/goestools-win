@@ -4,7 +4,6 @@
 #include <vector>
 
 #include <dirent.h>
-#include <fnmatch.h>
 
 class Dir {
 public:

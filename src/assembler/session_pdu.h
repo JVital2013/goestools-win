@@ -5,7 +5,7 @@
 #include <vector>
 
 extern "C" {
-#include <szlib.h>
+  #include <szlib.h>
 }
 
 #include <util/error.h>

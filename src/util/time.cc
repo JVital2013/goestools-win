@@ -1,15 +1,20 @@
 #include "time.h"
-
+#include <windows.h>
 #include <array>
 #include <cstring>
 #include <util/error.h>
 
 namespace util {
-
+	
 std::string stringTime() {
+  //Source: https://stackoverflow.com/questions/5404277/porting-clock-gettime-to-windows
   struct timespec ts;
-  auto rv = clock_gettime(CLOCK_REALTIME, &ts);
-  ASSERT(rv >= 0);
+  __int64 wintime;
+  GetSystemTimeAsFileTime((FILETIME*)&wintime);
+  wintime -= 116444736000000000i64;  //1jan1601 to 1jan1970
+  ts.tv_sec = wintime / 10000000i64;
+  ts.tv_nsec = wintime % 10000000i64 * 100;
+  
   std::array<char, 128> tsbuf;
   auto len = strftime(
       tsbuf.data(), tsbuf.size(), "%Y-%m-%dT%H:%M:%S.", gmtime(&ts.tv_sec));

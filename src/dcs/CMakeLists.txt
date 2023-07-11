@@ -1,5 +1,6 @@
 add_library(dcs dcs.cc)
+find_library(GETOPT_LIB getopt)
 
 add_executable(dcsdump dcsdump.cc)
 add_sanitizers(dcsdump)
-target_link_libraries(dcsdump lrit dcs m stdc++)
+target_link_libraries(dcsdump lrit dcs ${GETOPT_LIB})

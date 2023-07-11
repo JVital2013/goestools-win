@@ -1,8 +1,7 @@
 #pragma once
 
 #include <stdint.h>
-#include <unistd.h>
-
+#include <intrin.h>
 #include <string>
 
 namespace decoder {

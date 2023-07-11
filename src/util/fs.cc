@@ -1,5 +1,6 @@
 #include "fs.h"
 
+#include <direct.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -15,9 +16,7 @@ void mkdirp(const std::string& path) {
       continue;
     }
     auto sub = path.substr(0, pos);
-    constexpr auto mode =
-        S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
-    auto rv = mkdir(sub.c_str(), mode);
+    auto rv = _mkdir(sub.c_str());
     if (rv == -1 && errno != EEXIST) {
       perror("mkdir");
       ASSERT(rv == 0);

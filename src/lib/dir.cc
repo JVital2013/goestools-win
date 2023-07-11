@@ -1,5 +1,6 @@
 #include "dir.h"
 
+#include <shlwapi.h>
 #include <util/error.h>
 
 Dir::Dir(const std::string& path)
@@ -16,7 +17,7 @@ std::vector<std::string> Dir::matchFiles(const std::string& pattern) {
   std::vector<std::string> result;
   struct dirent *ent;
   while ((ent = readdir(dir_)) != NULL) {
-    if (fnmatch(pattern.c_str(), ent->d_name, 0) == 0) {
+    if (PathMatchSpecA(ent->d_name, pattern.c_str())) {
       result.push_back(path_ + "/" + std::string(ent->d_name));
     }
   }

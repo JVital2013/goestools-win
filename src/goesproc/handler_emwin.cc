@@ -94,7 +94,7 @@ bool EMWINHandler::extractTimeStamp(
   auto ptr = strptime(buf, format, &tm);
 
   // Only use time if strptime was successful
-  if (ptr != (buf + 14)) {
+  if (ptr == nullptr) {
     return false;
   }
 

@@ -1,6 +1,6 @@
 #include "handler_text.h"
-
 #include <regex>
+#include <windows.h>
 
 #include "filename.h"
 #include "string.h"
@@ -79,7 +79,12 @@ void TextHandler::handle(std::shared_ptr<const lrit::File> f) {
 
     // Parse time from file name.
     if (!goesrParseTextTime(text, time)) {
-      // Unable to extract timestamp from file name
+      // Unable to extract timestamp from file name.  Use current system time instead.
+	  __int64 wintime;
+      GetSystemTimeAsFileTime((FILETIME*)&wintime);
+      wintime -= 116444736000000000i64;  //1jan1601 to 1jan1970
+      time.tv_sec = wintime / 10000000i64;
+      time.tv_nsec = wintime % 10000000i64 * 100;
     }
   }
 

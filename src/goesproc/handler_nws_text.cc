@@ -1,5 +1,4 @@
 #include "handler_nws_text.h"
-
 #include <regex>
 
 #include "filename.h"

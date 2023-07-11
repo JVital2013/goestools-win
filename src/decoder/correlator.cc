@@ -53,7 +53,7 @@ int correlate(uint8_t* data, size_t len, int* maxOut, correlationType* maxType) 
 
     // Match tmp against encoded sync words
     for (unsigned j = 0; j < 4; j++) {
-      auto v = 64 - __builtin_popcount(tmp ^ encodedSyncWords[j]);
+      auto v = 64 - __popcnt(tmp ^ encodedSyncWords[j]);
       if (v > max[j]) {
         max[j] = v;
         pos[j] = i - (encodedSyncWordBits - 1);

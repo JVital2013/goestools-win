@@ -1,5 +1,7 @@
 add_executable(goeslrit goeslrit.cc options.cc)
 add_sanitizers(goeslrit)
 install(TARGETS goeslrit COMPONENT goestools RUNTIME DESTINATION bin)
-target_link_libraries(goeslrit assembler nanomsg packet_reader util m stdc++)
+
+find_library(GETOPT_LIB getopt)
+target_link_libraries(goeslrit assembler nanomsg packet_reader util ${GETOPT_LIB})
 target_link_libraries(goeslrit version)

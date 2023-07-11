@@ -5,6 +5,8 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <windows.h>
+#include <io.h>
 
 #include <util/fs.h>
 
@@ -29,7 +31,8 @@ using namespace util;
 int main(int argc, char** argv) {
   // Dealing with time zones is a PITA even if you only care about UTC.
   // Since this is not a library we can get away with the following...
-  setenv("TZ", "", 1);
+  //setenv("TZ", "", 1);
+  SetEnvironmentVariable("TZ", "UTC");
 
   auto opts = parseOptions(argc, argv);
   auto config = Config::load(opts.config);
@@ -124,7 +127,7 @@ int main(int argc, char** argv) {
     }
 
     // Run in verbose mode when stdout is a TTY.
-    bool verbose = isatty(fileno(stdout));
+    bool verbose = _isatty(fileno(stdout));
     p.run(reader, verbose);
   }
 
