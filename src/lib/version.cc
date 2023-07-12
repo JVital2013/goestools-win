@@ -23,5 +23,6 @@ void version(int argc, char** argv) {
     << "Written by Pieter Noordhuis and contributors"
     << std::endl
 	<< "Windows Port by Jamie Vital"
+    << std::endl
     << std::endl;
 }

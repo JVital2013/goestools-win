@@ -22,7 +22,7 @@ bool FileReader::nextPacket(std::array<uint8_t, 892>& out) {
       // Open next file
       std::cout << "Reading: " << files_.front() << std::endl;
       ifs_.close();
-      ifs_.open(files_.front());
+      ifs_.open(files_.front(), std::ios::binary);
       if (!ifs_.good()) {
         std::stringstream ss;
         ss << "Unable to open " << files_.front();

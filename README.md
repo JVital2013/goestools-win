@@ -1,18 +1,18 @@
 # Goestools for Windows
-Mostly broken. Kind of not. Some stuff works. Mostly here so I don't lose my progress right now.
+Port of Goestools for Windows.
 
 ### Known to work:
 - goeslrit
 - lritdump
-
-### Partially works:
- - goesproc
+- goesproc
+- goespackets
 
 ### Does not work
  - goesrecv (didn't get to it yet)
+ - goesemwin (no longer needed as there are no GOES-N satellites with LRIT/EMWIN active - EMWIN for GOES-R works fine via goesproc)
 
 ### Untested
- - goespackets (probably works)
+ - goesproc with GOES-N data - validated against GOES-R data only
 
 ## Compiling
 May the odds be ever in your favor

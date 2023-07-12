@@ -33,7 +33,7 @@ void FileWriter::write(const std::array<uint8_t, 892>& buf, time_t t) {
     }
 
     // Open new file
-    of_.open(filename, std::ofstream::out | std::ofstream::app);
+    of_.open(filename, std::ofstream::out | std::ofstream::app | std::ofstream::binary);
     if (!of_.good()) {
       std::cout
         << "Unable to open file: "
