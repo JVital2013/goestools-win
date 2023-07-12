@@ -91,6 +91,7 @@ void MapDrawer::generatePoints(
   }
 }
 
+#pragma optimize( "", off )
 void MapDrawer::generatePoints(const Config::Map& map, std::vector<std::vector<cv::Point>>& out) {
   // Iterate over features to aggregate line segments to draw
   for (const auto& feature : map.geo->at("features")) {
@@ -115,6 +116,7 @@ void MapDrawer::generatePoints(const Config::Map& map, std::vector<std::vector<c
     }
   }
 }
+#pragma optimize( "", on )
 
 cv::Mat MapDrawer::draw(cv::Mat& in) {
   // Convert grayscale image to color image to
