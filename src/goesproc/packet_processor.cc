@@ -15,9 +15,7 @@ void PacketProcessor::run(std::unique_ptr<PacketReader>& reader, bool verbose) {
       // Carriage return to return to beginning of line
       << "\r"
       // Flush buffers
-      << std::flush
-      // Erase in line (expected to be buffered)
-      << "\033[K";
+      << std::flush;
   }
 
   std::array<uint8_t, 892> buf;
@@ -35,9 +33,7 @@ void PacketProcessor::run(std::unique_ptr<PacketReader>& reader, bool verbose) {
         // Carriage return to return to beginning of line
         << "\r"
         // Flush buffers
-        << std::flush
-        // Erase in line (expected to be buffered)
-        << "\033[K";
+        << std::flush;
     }
 
     auto spdus = assembler_.process(buf);
