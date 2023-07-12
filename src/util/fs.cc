@@ -9,9 +9,13 @@
 namespace util {
 
 void mkdirp(const std::string& path) {
+  size_t newPos = 0;
   size_t pos = 0;
   for (;; pos++) {
-    pos = path.find('/', pos);
+    newPos = path.find('/', pos);
+    if(newPos == std::string::npos) newPos = path.find('\\', pos);
+    pos = newPos;
+
     if (pos == 0) {
       continue;
     }

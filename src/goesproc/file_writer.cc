@@ -61,7 +61,7 @@ void FileWriter::write(
   }
 
   std::cout << "Writing: " << path;
-  std::ofstream of(path);
+  std::ofstream of(path, std::ios::binary);
   of.write(data.data(), data.size());
   logTime(t);
 }
@@ -94,6 +94,8 @@ bool FileWriter::tryWrite(const std::string& path) {
   struct stat st;
 
   auto rpos = path.rfind('/');
+  if(rpos == std::string::npos) rpos = path.rfind('\\');
+  
   if (rpos != std::string::npos) {
     mkdirp(path.substr(0, rpos));
   }

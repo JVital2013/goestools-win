@@ -26,6 +26,8 @@ void FileWriter::write(const std::array<uint8_t, 892>& buf, time_t t) {
 
     // Optionally mkdir path to new file
     auto rpos = filename.rfind('/');
+    if(rpos == std::string::npos) rpos = filename.rfind('\\');
+
     if (rpos != std::string::npos) {
       mkdirp(filename.substr(0, rpos));
     }

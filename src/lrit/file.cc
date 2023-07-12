@@ -86,7 +86,7 @@ class offsetifstream : public std::istream {
 public:
   offsetifstream(const std::string& path)
     : std::istream(&buf_) {
-    buf_.open(path, std::ios::in);
+    buf_.open(path, std::ios::in | std::ios::binary);
   }
 
   void mark() {
