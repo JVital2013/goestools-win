@@ -6,20 +6,20 @@ Port of Goestools for Windows. Compiled releases will be available in a day or t
 - goesproc
 - goeslrit
 - lritdump
+- areadump
 - goespackets
+- packetinfo
 - benchmark
 - compute_sync_words
+- dcsdump - Old DCS lrit files only. New ones don't work on Linux either.
+- unzip - Can extract zips with a single file in it, like the data section of NWS/EMWIN lrit image files. For debugging purporses
 
 ### Untested
- - goesproc with GOES-N data - goesproc has been validated against GOES-R data only
- - dcsdump
- - areadump
- - packetdump
- - packetinfo
- - unzip
+- goesproc with GOES-N data - goesproc has been validated against GOES-R data only
+- packetdump - takes samples into STDIN and does some analysis - little used debug tool that can't easily be used AFAIK
 
 ### Does not work
- - goesemwin (no longer needed as there are no GOES-N satellites with LRIT/EMWIN active - EMWIN for GOES-R works fine via goesproc)
+- goesemwin (no longer needed as there are no GOES-N satellites with LRIT/EMWIN active. EMWIN for GOES-R works fine via goesproc)
 
 ## Compiling
 May the odds be ever in your favor

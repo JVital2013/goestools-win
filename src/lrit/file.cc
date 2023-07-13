@@ -101,7 +101,7 @@ private:
 
 File::File(const std::string& file)
   : file_(file) {
-  std::ifstream ifs(file_.c_str());
+  std::ifstream ifs(file_.c_str(), std::ios::binary);
   ASSERTM(ifs, "Unable to open ", file_, ": ", strerror(errno));
 
   // First 16 bytes hold the primary header

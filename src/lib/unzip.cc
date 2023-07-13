@@ -5,9 +5,9 @@
 #include "zip.h"
 
 int unzip(std::string path) {
-  Zip zip(std::unique_ptr<std::istream>(new std::ifstream(path)));
+  Zip zip(std::unique_ptr<std::istream>(new std::ifstream(path, std::ios::binary)));
   std::cout << zip.fileName() << std::endl;
-  std::ofstream of(zip.fileName());
+  std::ofstream of(zip.fileName(), std::ios::binary);
   auto data = zip.read();
   of.write(data.data(), data.size());
   return 0;

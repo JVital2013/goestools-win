@@ -7,7 +7,7 @@
 #include "vcdu.h"
 
 int main(int argc, char** argv) {
-  std::ifstream f(argv[1]);
+  std::ifstream f(argv[1], std::ios::binary);
   ASSERT(f.good());
 
   std::array<uint8_t, 892> buf;
