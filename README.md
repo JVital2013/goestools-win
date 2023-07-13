@@ -11,15 +11,13 @@ Port of Goestools for Windows. Compiled releases will be available in a day or t
 - packetinfo
 - benchmark
 - compute_sync_words
+- goesemwin - GOES-N EMWIN only. Built and verified operation for completeness.
 - dcsdump - Old DCS lrit files only. New ones don't work on Linux either.
 - unzip - Can extract zips with a single file in it, like the data section of NWS/EMWIN lrit image files. For debugging purposes.
 
 ### Untested
 - goesproc with GOES-N data - goesproc has been validated against GOES-R data only
 - packetdump - takes LRIT packets into STDIN and does some analysis. Tricky to use on windows, but would probably work.
-
-### Does not work
-- goesemwin - No longer needed as there are no GOES-N satellites with LRIT/EMWIN active. EMWIN for GOES-R works fine via goesproc. It should be easy to fix if needed in the future.
 
 ## Compiling
 May the odds be ever in your favor

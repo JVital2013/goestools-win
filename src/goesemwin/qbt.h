@@ -1,9 +1,10 @@
 #pragma once
-
+#include <stdexcept>
 #include <algorithm>
 #include <array>
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace qbt {
 
