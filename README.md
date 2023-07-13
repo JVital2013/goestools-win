@@ -44,10 +44,10 @@ Goestools for Windows comes with PowerShell scripts to set up vcpkg and build. v
 
     ![image](https://github.com/JVital2013/goestools-win/assets/24253715/ef7af001-c45e-4ee7-88e6-d9bb33d6a5fe)
 
-3. Clone goestools-win somewhere on your computer
+3. Clone goestools-win somewhere on your computer via `git clone --recursive https://github.com/JVital2013/goestools-win`
 4. Run Configure-VCPKG.ps1 in this repo to install and configure vcpkg at C:\vcpkg.
 5. If everything succeded, run Build.ps1 in this repo
-6. Your compiled code will be in <goestools-win>\build\dist
+6. Your compiled code will be in \<goestools-win\>\build\dist
 
 ## About Pull Requests
 In an attempt to keep this goestools fork compatible with the official Goestools for Linux repo, I will only accept pull requests and bug reports for Windows-specific issues. If you want to add a feature, open a PR on the official branch, then let me know about it. I will merge PRs from the official repo as requested, even if it has not been accepted in the official repo.
