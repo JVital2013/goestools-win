@@ -1,6 +1,6 @@
 #pragma once
 
-#include <sys/socket.h>
+#include <winsock2.h>
 
 #include <string>
 

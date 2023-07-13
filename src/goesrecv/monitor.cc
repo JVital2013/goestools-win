@@ -10,7 +10,6 @@
 #include <nanomsg/nn.h>
 #include <nanomsg/pubsub.h>
 #include <nlohmann/json.hpp>
-#include <pthread.h>
 
 using namespace nlohmann;
 
@@ -267,11 +266,6 @@ void Monitor::print(const Stats& stats) {
 
 void Monitor::start() {
   thread_ = std::thread(&Monitor::loop, this);
-#ifdef __APPLE__
-  pthread_setname_np("monitor");
-#else
-  pthread_setname_np(thread_.native_handle(), "monitor");
-#endif
 }
 
 void Monitor::stop() {

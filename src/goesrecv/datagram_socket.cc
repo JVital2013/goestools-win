@@ -1,10 +1,9 @@
 #include "datagram_socket.h"
 
-#include <netdb.h>
-#include <netinet/in.h>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <unistd.h>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+#include <io.h>
 
 #include <cstring>
 #include <stdexcept>
@@ -66,7 +65,7 @@ DatagramSocket::DatagramSocket(const std::string& addr) {
 }
 
 DatagramSocket::~DatagramSocket() {
-  close(fd_);
+  _close(fd_);
 }
 
 bool DatagramSocket::send(const std::string& payload) {

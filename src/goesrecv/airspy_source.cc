@@ -1,7 +1,5 @@
 #include "airspy_source.h"
 
-#include <pthread.h>
-
 #include <cstring>
 #include <iostream>
 

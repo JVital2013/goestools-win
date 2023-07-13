@@ -1,5 +1,4 @@
 #include <signal.h>
-
 #include <iostream>
 
 #include "config.h"
@@ -8,6 +7,8 @@
 #include "monitor.h"
 #include "options.h"
 #include "publisher.h"
+
+#include <windows.h>
 
 static bool sigint = false;
 
@@ -44,19 +45,16 @@ int main(int argc, char** argv) {
   monitor.initialize(config);
 
   // Install signal handler
-  struct sigaction sa;
-  sa.sa_handler = signalHandler;
-  sigemptyset(&sa.sa_mask);
-  sa.sa_flags = 0;
-  sigaction(SIGINT, &sa, NULL);
-  sigaction(SIGTERM, &sa, NULL);
+  signal(SIGINT, signalHandler);
+  signal(SIGTERM, signalHandler);
+  signal(SIGBREAK, signalHandler);
 
   demod.start();
   decode.start();
   monitor.start();
 
   while (!sigint) {
-    pause();
+    Sleep(1000);
   }
 
   demod.stop();

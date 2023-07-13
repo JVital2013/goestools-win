@@ -1,18 +1,25 @@
 # Goestools for Windows
-Port of Goestools for Windows.
+Port of Goestools for Windows. Compiled releases will be available in a day or two!
 
 ### Known to work:
+- goesrecv
+- goesproc
 - goeslrit
 - lritdump
-- goesproc
 - goespackets
-
-### Does not work
- - goesrecv (didn't get to it yet)
- - goesemwin (no longer needed as there are no GOES-N satellites with LRIT/EMWIN active - EMWIN for GOES-R works fine via goesproc)
+- benchmark
+- compute_sync_words
 
 ### Untested
- - goesproc with GOES-N data - validated against GOES-R data only
+ - goesproc with GOES-N data - goesproc has been validated against GOES-R data only
+ - dcsdump
+ - areadump
+ - packetdump
+ - packetinfo
+ - unzip
+
+### Does not work
+ - goesemwin (no longer needed as there are no GOES-N satellites with LRIT/EMWIN active - EMWIN for GOES-R works fine via goesproc)
 
 ## Compiling
 May the odds be ever in your favor
@@ -44,6 +51,7 @@ MORE HERE - COMPILE LIBAEC AND COPY INTO VCPKG
 cd C:\vcpkg\installed\x64-windows\bin
 curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/bin/airspy.dll
 curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/bin/airspyhf.dll
+curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/bin/pthreadVC2.dll
 cd C:\vcpkg\installed\x64-windows\lib
 curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/lib/airspy.lib
 curl -LJO https://github.com/Aang23/vcpkg/raw/master/installed/x64-windows/lib/airspyhf.lib
@@ -75,4 +83,5 @@ cd goestools
 mkdir build && cd build
 cmake .. "-DCMAKE_TOOLCHAIN_FILE=C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -G "Visual Studio 17 2022"
 cmake --build . --config Release
+TODO: Copy proj.db into place
 ```
