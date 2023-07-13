@@ -35,13 +35,19 @@ May the odds be ever in your favor
 ### Configure Visual Studio
 Install Visual Studio Community 2022 or greater. On install, set it up for "Desktop development with C++." Make sure "Git for Windows" gets installed as well.
 
+![image](https://github.com/JVital2013/goestools-win/assets/24253715/396cc01e-f35d-46ca-b2b4-e240170068de)
+
 ### Configure vcpkg and build
 Goestools for Windows comes with PowerShell scripts to set up vcpkg and build. vcpkg must be installed at C:\vcpkg, but don't worry - we'll take care of that for you.
 
-1. Clone goestools-win somewhere on you from your start menu
-3. Run Configure-VCPKG.ps1 in this repo to install and configure vcpkg at C:\vcpkg.
-4. If everything succeded, run Build.ps1 in this repo
-5. Your compiled code will be in <goestools-win>\build\dist
+1. Open "Developer PowerShell for VS 2022" from the start Menu
+
+    ![image](https://github.com/JVital2013/goestools-win/assets/24253715/ef7af001-c45e-4ee7-88e6-d9bb33d6a5fe)
+
+3. Clone goestools-win somewhere on your computer
+4. Run Configure-VCPKG.ps1 in this repo to install and configure vcpkg at C:\vcpkg.
+5. If everything succeded, run Build.ps1 in this repo
+6. Your compiled code will be in <goestools-win>\build\dist
 
 ## About Pull Requests
 In an attempt to keep this goestools fork compatible with the official Goestools for Linux repo, I will only accept pull requests and bug reports for Windows-specific issues. If you want to add a feature, open a PR on the official branch, then let me know about it. I will merge PRs from the official repo as requested, even if it has not been accepted in the official repo.
