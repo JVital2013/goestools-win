@@ -18,14 +18,14 @@ endif()
 set(BUILD_SHARED_LIBS OFF CACHE INTERNAL "" FORCE)
 
 # Set a default build type if none was specified
-set(default_build_type "RelWithDebInfo")
+set(default_build_type "Release")
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "Defaulting build type to '${default_build_type}'")
   set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE
     STRING "Choose the type of build." FORCE)
   # Set the possible values of build type for cmake-gui
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
-    "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+    "Debug" "Release" "MinSizeRel")
 endif()
 
 set(CMAKE_C_STANDARD 11)
@@ -71,24 +71,6 @@ endif()
 option(BUILD_GOESPROC "Build goesproc" ON)
 if(${BUILD_GOESPROC})
   add_subdirectory(src/goesproc)
-
-  # Process and install GOES-N series example config
-  configure_file(
-    share/goesproc-goesn.conf.in
-    "${PROJECT_BINARY_DIR}/share/goesproc-goesn.conf")
-  install(
-    FILES "${PROJECT_BINARY_DIR}/share/goesproc-goesn.conf"
-    DESTINATION share/goestools
-    COMPONENT goestools)
-
-  # Process and install GOES-R series example config
-  configure_file(
-    share/goesproc-goesr.conf.in
-    "${PROJECT_BINARY_DIR}/share/goesproc-goesr.conf")
-  install(
-    FILES "${PROJECT_BINARY_DIR}/share/goesproc-goesr.conf"
-    DESTINATION share/goestools
-    COMPONENT goestools)
 
   # Install contrast curve and false color LUT
   install(
