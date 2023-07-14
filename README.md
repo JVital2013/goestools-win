@@ -54,7 +54,7 @@ Goestools for Windows comes with PowerShell scripts to set up vcpkg and build th
 6. Your compiled code will be in \<goestools-win\>\build\dist
 
 ## About Pull Requests
-In an attempt to keep this goestools fork compatible with the official Goestools for Linux repo, I will only accept pull requests and bug reports for Windows-specific issues. If you want to add a feature, open a PR on the official branch, then let me know about it. I will merge PRs from the official repo as requested, even if it has not been accepted in the official repo.
+In an attempt to keep this goestools fork compatible with the official Goestools for Linux repo, I will only accept pull requests and bug reports for Windows-specific issues. If you want to add a feature, open a PR on the official branch, then let me know about it. I may merge PRs from the official repo as requested.
 
 ## Changes and Credits
 Of course, a huge thanks to @pietern for the original goestools software. All I did was swap out parts to make it work on Windows, so all credit for this program should go to him.
@@ -65,7 +65,7 @@ This port was forked from goestools at 865e5c7. I made several (hundred?) code c
 - [Update to support proj >= 8](https://github.com/pietern/goestools/pull/148) by @jim-minter
 - [Fix getting admin text messages](https://github.com/pietern/goestools/pull/105) by @spinomaly
 
-Additionally, thanks to @Aang for keeping his custom vcpkg public so I could see how to compile software like this.
+Additionally, thanks to @Aang23 for keeping his custom vcpkg public so I could see how to compile software like this.
 
 ## License
 Goestools for Windows is licensed under the "BSD 2-Clause 'Simplified' License." License for goestools, and for all bundled libraries, are in the LICENSES folder.
