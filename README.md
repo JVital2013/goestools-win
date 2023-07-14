@@ -1,12 +1,12 @@
 # Goestools for Windows
-Goestools port for Windows. Originally by Pieter Noordhuis; ported to Windows by Jamie Vital.
+Goestools port for Windows. Originally by Pieter Noordhuis; ported to Windows by Jamie Vital. For goestools documentation, see the original docs [here](https://pietern.github.io/goestools/commands.html).
 
-For goestools documentation, see the original Linux documentation [here](https://pietern.github.io/goestools/commands.html).
+**Video Demo:** [https://www.youtube.com/watch?v=pOpxVbBFl3Y](https://www.youtube.com/watch?v=pOpxVbBFl3Y)
 
-Video Demo: [https://www.youtube.com/watch?v=pOpxVbBFl3Y](https://www.youtube.com/watch?v=pOpxVbBFl3Y)
+![image](https://github.com/JVital2013/goestools-win/assets/24253715/6436a7ef-8612-4594-8d25-f391ec095517)
 
 ## Running the programs
-Once you have a dish, amplifier, and SDR set up, Download the lastest build from [releases](/releases). Then, extract the zip and start goesrecv, followed by goesproc.
+Once you have a dish, amplifier, and SDR set up, Download the lastest build from [releases]([/releases](https://github.com/JVital2013/goestools-win/releases)). Then, extract the zip and start goesrecv, followed by goesproc.
 
 ### System Requirements
 - Windows Vista or newer, 64-bit (Windows 10 or newer recommended).
