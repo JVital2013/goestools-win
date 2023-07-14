@@ -2,8 +2,13 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(goesdec CXX C)
 
-include_directories(vcpkg/installed/x64-windows/include)
-link_directories(vcpkg/installed/x64-windows/lib)
+if("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "x64")
+  include_directories(vcpkg/installed/x64-windows/include)
+  link_directories(vcpkg/installed/x64-windows/lib)
+else()
+  include_directories(vcpkg/installed/x86-windows/include)
+  link_directories(vcpkg/installed/x86-windows/lib)
+endif()
 
 if(SANITIZE_ADDRESS OR SANITIZE_MEMORY OR
     SANITIZE_THREAD OR SANITIZE_UNDEFINED)
