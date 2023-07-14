@@ -13,5 +13,5 @@ public:
   virtual void write(const std::array<uint8_t, 892>& in, time_t t);
 
 protected:
-  int fd_;
+  int fd_ = 0;
 };
