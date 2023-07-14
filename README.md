@@ -42,7 +42,7 @@ Install Visual Studio Community 2022 or greater. On install, set it up for "Desk
 ![image](https://github.com/JVital2013/goestools-win/assets/24253715/396cc01e-f35d-46ca-b2b4-e240170068de)
 
 ### Configure vcpkg and build
-Goestools for Windows comes with PowerShell scripts to set up vcpkg and build. vcpkg must be installed at C:\vcpkg, but don't worry - we'll take care of that for you.
+Goestools for Windows comes with PowerShell scripts to set up vcpkg and build the software.
 
 1. Open "Developer PowerShell for VS 2022" from the start Menu
 
