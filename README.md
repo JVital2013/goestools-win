@@ -1,5 +1,9 @@
 # Goestools for Windows
-Goestools port for Windows. For documentation, see the original Linux documentation [here](https://pietern.github.io/goestools/commands.html).
+Goestools port for Windows. Originally by Pieter Noordhuis; ported to Windows by Jamie Vital.
+
+For goestools documentation, see the original Linux documentation [here](https://pietern.github.io/goestools/commands.html).
+
+Video Demo: [https://www.youtube.com/watch?v=pOpxVbBFl3Y](https://www.youtube.com/watch?v=pOpxVbBFl3Y)
 
 ## Running the programs
 Once you have a dish, amplifier, and SDR set up, Download the lastest build from [releases](/releases). Then, extract the zip and start goesrecv, followed by goesproc.
@@ -51,6 +55,17 @@ Goestools for Windows comes with PowerShell scripts to set up vcpkg and build. v
 
 ## About Pull Requests
 In an attempt to keep this goestools fork compatible with the official Goestools for Linux repo, I will only accept pull requests and bug reports for Windows-specific issues. If you want to add a feature, open a PR on the official branch, then let me know about it. I will merge PRs from the official repo as requested, even if it has not been accepted in the official repo.
+
+## Changes and Credits
+Of course, a huge thanks to @pietern for the original goestools software. All I did was swap out parts to make it work on Windows, so all credit for this program should go to him.
+
+This port was forked from goestools at 865e5c7. I made several (hundred?) code changes to facilitate compilation on Windows, but the core of the code has remained unchanged. The following additional patches have also been applied: 
+
+- [Differentiate between DSI-CAPE and DSI-LI](https://github.com/pietern/goestools/pull/163) by @JVital2013
+- [Update to support proj >= 8](https://github.com/pietern/goestools/pull/148) by @jim-minter
+- [Fix getting admin text messages](https://github.com/pietern/goestools/pull/105) by @spinomaly
+
+Additionally, thanks to @Aang for keeping his custom vcpkg public so I could see how to compile software like this.
 
 ## License
 Goestools for Windows is licensed under the "BSD 2-Clause 'Simplified' License." License for goestools, and for all bundled libraries, are in the LICENSES folder.

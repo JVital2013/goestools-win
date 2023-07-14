@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(goesdec CXX C)
 
-include_directories(C:/vcpkg/installed/x64-windows/include)
-link_directories(C:/vcpkg/installed/x64-windows/lib)
+include_directories(vcpkg/installed/x64-windows/include)
+link_directories(vcpkg/installed/x64-windows/lib)
 
 if(SANITIZE_ADDRESS OR SANITIZE_MEMORY OR
     SANITIZE_THREAD OR SANITIZE_UNDEFINED)
