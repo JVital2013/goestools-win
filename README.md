@@ -9,8 +9,8 @@ Goestools port for Windows. Originally by Pieter Noordhuis; ported to Windows by
 Once you have a dish, amplifier, and SDR set up, Download the lastest build from [releases](https://github.com/JVital2013/goestools-win/releases). Then, extract the zip and start goesrecv, followed by goesproc.
 
 ### System Requirements
-- Windows Vista or newer, 64-bit (Windows 10 or newer recommended).
-- Microsoft Visual C++ Redistributable 64-bit. You probably have it already, but if not you can get it [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist). The 2022 redistributable is recommended, but it will run with the 2019 version as well.
+- Windows Vista or newer (Windows 10 or newer recommended).
+- Microsoft Visual C++ Redistributable. You probably have it already, but if not you can get it [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist). The 2022 redistributable is recommended, but it will run with the 2019 version as well.
 - An RTL-SDR or AirSpy SDR with driver installed
 - Proper dish and amplifier for LRIT/HRIT reception
 
