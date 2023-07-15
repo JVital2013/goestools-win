@@ -29,6 +29,7 @@ MapDrawer::MapDrawer(
   }
 }
 
+#pragma optimize( "", off )
 void MapDrawer::generatePoints(
     std::vector<std::vector<cv::Point>>& out,
     const json& coords) {
@@ -91,7 +92,6 @@ void MapDrawer::generatePoints(
   }
 }
 
-#pragma optimize( "", off )
 void MapDrawer::generatePoints(const Config::Map& map, std::vector<std::vector<cv::Point>>& out) {
   // Iterate over features to aggregate line segments to draw
   for (const auto& feature : map.geo->at("features")) {
