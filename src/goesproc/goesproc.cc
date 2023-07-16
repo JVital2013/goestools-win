@@ -8,6 +8,10 @@
 #include <windows.h>
 #include <io.h>
 
+#ifdef HAS_PROJ
+#include <proj.h>
+#endif
+
 #include <util/fs.h>
 
 #include "lib/file_reader.h"
@@ -49,6 +53,20 @@ int main(int argc, char** argv) {
   if (opts.force) {
     fileWriter->setForce(true);
   }
+  
+#ifdef HAS_PROJ
+  //Force proj to look in the same directory as the exe for proj.db and cwd
+  char file_path[MAX_PATH], cwd[MAX_PATH];
+  GetModuleFileName(NULL, file_path, MAX_PATH);
+  std::string exe_path(file_path);
+  exe_path = exe_path.substr(0, exe_path.find_last_of("/\\"));
+  GetCurrentDirectory(MAX_PATH, cwd);
+
+  const char *proj_paths[2];
+  proj_paths[0] = exe_path.c_str();
+  proj_paths[1] = cwd;
+  proj_context_set_search_paths(NULL, 2, proj_paths);
+#endif
 
   // Construct list of file handlers
   std::vector<std::unique_ptr<Handler> > handlers;

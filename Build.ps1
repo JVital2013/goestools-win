@@ -56,7 +56,7 @@ foreach($arch in $("win32", "x64"))
     cp -Force ..\build-$arch\src\lrit\Release\*.dll bin/
 
     cp ..\..\README.md .
-    cp $vcpkg\installed\x64-windows\share\proj\proj.db .
+    cp $vcpkg\installed\x64-windows\share\proj\proj.db bin/
     cp -r ..\..\share .
     cp -r ..\..\LICENSES .
     cp -r ..\..\config .
