@@ -8,6 +8,8 @@ Goestools port for Windows. Originally by Pieter Noordhuis; ported to Windows by
 ## Running the programs
 Once you have a dish, amplifier, and SDR set up, Download the lastest build from [releases](https://github.com/JVital2013/goestools-win/releases). Then, extract the zip and start goesrecv, followed by goesproc.
 
+**NOTE:** if you are receiving GOES, download the release named goestools-win\*. The release named gk2a-goesrecv-win\* is a build of goesrecv for the GK-2A satellite only, and will not work with GOES satellites.
+
 ### System Requirements
 - Windows Vista or newer (Windows 10 or newer recommended).
 - Microsoft Visual C++ Redistributable. You probably have it already, but if not you can get it [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist). The 2022 redistributable is recommended, but it will run with the 2019 version as well.
@@ -34,7 +36,7 @@ Once you have a dish, amplifier, and SDR set up, Download the lastest build from
 - packetdump - takes LRIT packets into STDIN and does some analysis. Let me know if you use this, and it works for you.
 
 ## Compiling from source
-May the odds be ever in your favor
+For most users, I recommend using one of the pre-compiled releases. If you choose to compile from source: may the odds be ever in your favor.
 
 ### Configure Visual Studio
 Install Visual Studio Community 2022 or greater. On install, set it up for "Desktop development with C++." Make sure "Git for Windows" gets installed as well.
@@ -64,6 +66,7 @@ This port was forked from goestools at 865e5c7. I made several (hundred?) code c
 - [Differentiate between DSI-CAPE and DSI-LI](https://github.com/pietern/goestools/pull/163) by @JVital2013
 - [Update to support proj >= 8](https://github.com/pietern/goestools/pull/148) by @jim-minter
 - [Fix getting admin text messages](https://github.com/pietern/goestools/pull/105) by @spinomaly
+- On the GK-2A build, I copied the sample rates for LRIT/HRIT from @sam210723's [fork of goestools](https://github.com/sam210723/goestools). My build is not the same as Sam's - there are additional changes he made that did not make it into the Windows build, but I do not believe they are necessary for successful use.
 
 Additionally, thanks to @Aang23 for keeping his custom vcpkg public so I could see how to compile software like this.
 
