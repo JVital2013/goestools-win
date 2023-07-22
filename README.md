@@ -12,7 +12,7 @@ Once you have a dish, amplifier, and SDR set up, Download the lastest build from
 
 ### System Requirements
 - Windows Vista or newer (Windows 10 or newer recommended).
-- Microsoft Visual C++ Redistributable. You probably have it already, but if not you can get it [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist). The 2022 redistributable is recommended, but it will run with the 2019 version as well.
+- Microsoft Visual C++ Redistributable. You probably have it already, but if not you can get it [here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist). The 2022 redistributable is recommended. If you have weird issues, try updating this first!
 - An RTL-SDR or AirSpy SDR with driver installed
 - Proper dish and amplifier for LRIT/HRIT reception
 
@@ -23,17 +23,13 @@ Once you have a dish, amplifier, and SDR set up, Download the lastest build from
 - lritdump
 - areadump
 - goespackets
+- packetdump
 - packetinfo
 - benchmark
 - compute_sync_words
 - goesemwin - GOES-N EMWIN only. Built and verified operation for completeness.
 - dcsdump - Old DCS lrit files only. New ones don't work on Linux either.
 - unzip - Can extract zips with a single file in it, like the data section of NWS/EMWIN lrit image files. For debugging purposes.
-
-### Untested
-- goesrecv (with an AirSpy). I'd love to get confirmation if this works!
-- goesproc (with GOES-N series data). Goesproc has been validated against GOES-R series data only
-- packetdump - takes LRIT packets into STDIN and does some analysis. Let me know if you use this, and it works for you.
 
 ## Compiling from source
 For most users, I recommend using one of the pre-compiled releases. If you choose to compile from source: may the odds be ever in your favor.
@@ -51,7 +47,7 @@ Goestools for Windows comes with PowerShell scripts to set up vcpkg and build th
     ![image](https://github.com/JVital2013/goestools-win/assets/24253715/ef7af001-c45e-4ee7-88e6-d9bb33d6a5fe)
 
 3. Clone goestools-win somewhere on your computer via `git clone --recursive https://github.com/JVital2013/goestools-win`
-4. Run Configure-VCPKG.ps1 in this repo to install and configure vcpkg at C:\vcpkg.
+4. Run Configure-VCPKG.ps1 in this repo to install and configure vcpkg.
 5. If everything succeded, run Build.ps1 in this repo
 6. Your compiled code will be in \<goestools-win\>\build\dist
 

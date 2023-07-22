@@ -1,4 +1,5 @@
 #include <io.h>
+#include <fcntl.h>
 
 #include <ctime>
 #include <fstream>
@@ -66,7 +67,7 @@ public:
 
       fileName_ = timeToFileName(t);
       fileTime_ = t;
-      of_.open(fileName_, std::ofstream::out | std::ofstream::app);
+      of_.open(fileName_, std::ofstream::out | std::ofstream::app | std::ofstream::binary);
       ASSERT(of_.good());
 
       std::cout
@@ -89,13 +90,14 @@ protected:
     auto len = strftime(
       tsbuf.data(),
       tsbuf.size(),
-      "packets-%FT%TZ.raw",
+      "packets-%FT%H-%M-%SZ.raw",
       gmtime(&t));
     return path_ + "/" + std::string(tsbuf.data(), len);
   }
 };
 
 int main(int argc, char** argv) {
+  _setmode(0, _O_BINARY);
   auto reader = std::make_shared<FileReader>(0);
   auto writer = std::make_shared<FileWriter>(".");
   decoder::Packetizer p(reader);

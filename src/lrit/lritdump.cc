@@ -1,3 +1,5 @@
+#include <io.h>
+#include <fcntl.h>
 #include <getopt.h>
 #include <string.h>
 #include <sys/types.h>
@@ -197,6 +199,7 @@ int extract(const Options&, const std::string& name) {
   auto& ifs = *data;
   auto& ofs = std::cout;
   std::array<char, 8192> buf;
+  _setmode( _fileno( stdout ), _O_BINARY );
   while (!ifs.eof()) {
     ifs.read(buf.data(), buf.size());
     ofs.write(buf.data(), ifs.gcount());

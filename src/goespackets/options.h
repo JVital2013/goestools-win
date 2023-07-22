@@ -11,7 +11,7 @@ struct Options {
 
   // Record packets stream
   bool record = false;
-  std::string filename = "./packets-%FT%H:%M:00.raw";
+  std::string filename = "./packets-%FT%H-%M-00.raw";
 
   // Filter these VCIDs (include everything if empty)
   std::set<int> vcids;
