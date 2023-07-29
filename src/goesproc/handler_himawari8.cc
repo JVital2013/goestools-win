@@ -141,7 +141,7 @@ struct timespec Himawari8ImageHandler::getTime(const lrit::File& f) const {
   auto ptr = strptime(buf, format, &tm);
 
   // Only use time if strptime was successful
-  if (ptr == (buf + 12)) {
+  if (ptr != nullptr) {
     time.tv_sec = mktime(&tm);
     time.tv_nsec = 0;
   }
