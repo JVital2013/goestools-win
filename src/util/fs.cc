@@ -20,11 +20,15 @@ void mkdirp(const std::string& path) {
       continue;
     }
     auto sub = path.substr(0, pos);
-    auto rv = _mkdir(sub.c_str());
-    if (rv == -1 && errno != EEXIST) {
-      perror("mkdir");
-      ASSERT(rv == 0);
+    if (sub.back() != ':')
+    {
+        auto rv = _mkdir(sub.c_str());
+        if (rv == -1 && errno != EEXIST) {
+            perror("mkdir");
+            ASSERT(rv == 0);
+        }
     }
+
     if (pos == std::string::npos) {
       break;
     }
