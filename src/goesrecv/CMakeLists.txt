@@ -12,9 +12,9 @@ find_library(AIRSPY_LIB airspy)
 add_library(airspy_source airspy_source.cc)
 target_link_libraries(airspy_source ${AIRSPY_LIB} publisher)
 
-find_package(rtlsdr CONFIG REQUIRED)
+find_library(rtlsdr rtlsdr)
 add_library(rtlsdr_source rtlsdr_source.cc)
-target_link_libraries(rtlsdr_source rtlsdr::rtlsdr publisher)
+target_link_libraries(rtlsdr_source rtlsdr publisher)
 
 add_library(nanomsg_source nanomsg_source.cc)
 target_link_libraries(nanomsg_source nanomsg publisher)

@@ -28,10 +28,10 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 #include <stdint.h>
 #include "airspy_commands.h"
 
-#define AIRSPY_VERSION "1.0.10"
+#define AIRSPY_VERSION "1.0.12"
 #define AIRSPY_VER_MAJOR 1
 #define AIRSPY_VER_MINOR 0
-#define AIRSPY_VER_REVISION 10
+#define AIRSPY_VER_REVISION 12
 
 #ifdef _WIN32
 	 #define ADD_EXPORTS
@@ -67,6 +67,7 @@ enum airspy_error
 	AIRSPY_ERROR_NOT_FOUND = -5,
 	AIRSPY_ERROR_BUSY = -6,
 	AIRSPY_ERROR_NO_MEM = -11,
+	AIRSPY_ERROR_UNSUPPORTED = -12,
 	AIRSPY_ERROR_LIBUSB = -1000,
 	AIRSPY_ERROR_THREAD = -1001,
 	AIRSPY_ERROR_STREAMING_THREAD_ERR = -1002,
@@ -126,6 +127,7 @@ extern ADDAPI int ADDCALL airspy_exit(void);
 extern ADDAPI int ADDCALL airspy_list_devices(uint64_t *serials, int count);
 
 extern ADDAPI int ADDCALL airspy_open_sn(struct airspy_device** device, uint64_t serial_number);
+extern ADDAPI int ADDCALL airspy_open_fd(struct airspy_device** device, int fd);
 extern ADDAPI int ADDCALL airspy_open(struct airspy_device** device);
 extern ADDAPI int ADDCALL airspy_close(struct airspy_device* device);
 
@@ -167,7 +169,7 @@ extern ADDAPI int ADDCALL airspy_spiflash_write(struct airspy_device* device, co
 extern ADDAPI int ADDCALL airspy_spiflash_read(struct airspy_device* device, const uint32_t address, const uint16_t length, unsigned char* data);
 
 extern ADDAPI int ADDCALL airspy_board_id_read(struct airspy_device* device, uint8_t* value);
-/* Parameter length shall be at least 128bytes */
+/* Parameter length shall be at least 128bytes to avoid possible string clipping */
 extern ADDAPI int ADDCALL airspy_version_string_read(struct airspy_device* device, char* version, uint8_t length);
 
 extern ADDAPI int ADDCALL airspy_board_partid_serialno_read(struct airspy_device* device, airspy_read_partid_serialno_t* read_partid_serialno);

@@ -18,13 +18,17 @@ mkdir build | Out-null
 cd build | Out-null
 
 #Do the builds
-foreach($arch in $("win32", "x64"))
+foreach($arch in $("win32", "x64", "arm64"))
 {
     Write-Output "Building for $arch..."
     mkdir "build-$arch" | Out-Null
     cd "build-$arch"
-
-    cmake ..\.. "-DCMAKE_TOOLCHAIN_FILE=$($vcpkg.Replace("\", "/"))/scripts/buildsystems/vcpkg.cmake" -G "Visual Studio 17 2022" -A $arch
+	
+	if($arch -eq "win32") { $triplet = "x86-windows" }
+	else { $triplet = $arch + "-windows" }
+	
+	#TODO fix me for ARM
+    cmake ..\.. "-DCMAKE_TOOLCHAIN_FILE=$($vcpkg.Replace("\", "/"))/scripts/buildsystems/vcpkg.cmake" -A $arch
     cmake --build . --config Release
 
     #Create the bundle folder and put everything in it
