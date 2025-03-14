@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 
-#ifdef __ARM_NEON
+#ifdef _M_ARM64
 #include <arm_neon.h>
 #endif
 
@@ -139,7 +139,7 @@ void RTLSDR::stop() {
   queue_.reset();
 }
 
-#ifdef __ARM_NEON
+#ifdef _M_ARM64
 
 void RTLSDR::process(
     size_t nsamples,
@@ -152,17 +152,11 @@ void RTLSDR::process(
 
   // Iterate over samples in blocks of 4 (each sample has I and Q)
   for (uint32_t i = 0; i < (nsamples / 4); i++) {
-    uint32x4_t ui;
-    ui[0] = buf[i * 8 + 0];
-    ui[1] = buf[i * 8 + 2];
-    ui[2] = buf[i * 8 + 4];
-    ui[3] = buf[i * 8 + 6];
+    uint32_t uiArr[4] = { buf[i * 8 + 0], buf[i * 8 + 2], buf[i * 8 + 4], buf[i * 8 + 6] };
+    uint32x4_t ui = vld1q_u32(uiArr);
 
-    uint32x4_t uq;
-    uq[0] = buf[i * 8 + 1];
-    uq[1] = buf[i * 8 + 3];
-    uq[2] = buf[i * 8 + 5];
-    uq[3] = buf[i * 8 + 7];
+    uint32_t uqArr[4] = { buf[i * 8 + 1], buf[i * 8 + 3], buf[i * 8 + 5], buf[i * 8 + 7] };
+    uint32x4_t uq = vld1q_u32(uqArr);
 
     // Convert to float32x4 and divide by 2^7 (128)
     float32x4_t fi = vcvtq_n_f32_u32(ui, 7);

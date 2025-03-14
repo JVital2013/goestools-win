@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#ifdef __ARM_NEON
+#ifdef _M_ARM64
 #include <arm_neon.h>
 #endif
 
@@ -13,7 +13,7 @@ AGC::AGC() {
   gain_ = 1e0f;
 }
 
-#ifdef __ARM_NEON
+#ifdef _M_ARM64
 
 void AGC::work(
     size_t nsamples,
@@ -43,14 +43,14 @@ void AGC::work(
 
     // Update gain.
     // Use only the first sample and ignore the others.
-    float32x4_t delta = vdupq_n_f32(alpha_ * (0.5 - sqrtf(x2[0])));
+    float32x4_t delta = vdupq_n_f32(alpha_ * (0.5 - sqrtf(vgetq_lane_f32(x2, 0))));
     gain = vaddq_f32(gain, delta);
     gain = vmaxq_f32(gain, min);
     gain = vminq_f32(gain, max);
   }
 
   // Write back to instance variable
-  gain_ = gain[0];
+  gain_ = vgetq_lane_f32(gain, 0);
 }
 
 #else

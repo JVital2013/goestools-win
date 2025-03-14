@@ -3,6 +3,8 @@
 
 #include <util/error.h>
 
+// Windows note - this is purposfully not enabled on Windows, as sinf/cosf are much faster
+// Code would need updated to work on windows
 #ifdef __ARM_NEON
 #include "./neon/neon_mathfun.h"
 #endif
