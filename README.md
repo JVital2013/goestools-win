@@ -70,7 +70,6 @@ Of course, a huge thanks to @pietern for the original goestools software. All I 
 This port was forked from goestools at 865e5c7. I made several (hundred?) code changes to facilitate compilation on Windows, but the core of the code has remained unchanged. The following additional patches have also been applied: 
 
 - [Differentiate between DSI-CAPE and DSI-LI](https://github.com/pietern/goestools/pull/163) by @JVital2013
-- [Update to support proj >= 8](https://github.com/pietern/goestools/pull/148) by @jim-minter
 - [Fix getting admin text messages](https://github.com/pietern/goestools/pull/105) by @spinomaly
 - [Added config option for EMWIN handler to disable output of TXT files](https://github.com/pietern/goestools/pull/79) by @tmbates12
 - On the GK-2A build, I copied the sample rates for LRIT/HRIT from @sam210723's [fork of goestools](https://github.com/sam210723/goestools). My build is not the same as Sam's - there are additional changes he made that did not make it into the Windows build, but I do not believe they are necessary for successful use.

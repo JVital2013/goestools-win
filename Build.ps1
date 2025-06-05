@@ -24,9 +24,6 @@ foreach($arch in $("win32", "x64", "arm64"))
     mkdir "build-$arch" | Out-Null
     cd "build-$arch"
 	
-	if($arch -eq "win32") { $triplet = "x86-windows" }
-	else { $triplet = $arch + "-windows" }
-	
     cmake ..\.. "-DCMAKE_TOOLCHAIN_FILE=$($vcpkg.Replace("\", "/"))/scripts/buildsystems/vcpkg.cmake" -A $arch
     cmake --build . --config Release
 
