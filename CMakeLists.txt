@@ -2,10 +2,11 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 project(goesdec CXX C)
 
-if("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "x64")
+string(TOLOWER "${CMAKE_GENERATOR_PLATFORM}" GENERATOR_LOWER)
+if("${GENERATOR_LOWER}" STREQUAL "x64")
   include_directories(vcpkg/installed/x64-windows/include)
   link_directories(vcpkg/installed/x64-windows/lib)
-elseif("${CMAKE_GENERATOR_PLATFORM}" STREQUAL "arm64")
+elseif("${GENERATOR_LOWER}" STREQUAL "arm64")
   include_directories(vcpkg/installed/arm64-windows/include)
   link_directories(vcpkg/installed/arm64-windows/lib)
 else()
