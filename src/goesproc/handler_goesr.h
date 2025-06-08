@@ -69,6 +69,22 @@ public:
     return channel_;
   }
 
+  const double getComputedColumnOffset() const {
+    return -xStartBound_ / xScaleFactor_;
+  }
+
+  const double getComputedLineOffset() const {
+    return -yStartBound_ / yScaleFactor_;
+  }
+
+  const double getXMetersPerPx() const {
+    return std::abs(perspectivePointHeight_ * xScaleFactor_);
+  }
+
+  const double getYMetersPerPx() const {
+    return std::abs(perspectivePointHeight_ * yScaleFactor_);
+  }
+
 protected:
   std::vector<std::shared_ptr<const lrit::File>> files_;
 
@@ -85,6 +101,16 @@ protected:
   std::string imagingMode_;
   std::string resolution_;
   bool segmented_{false};
+
+  // GOES-R LRIT files after Apr 1, 2020 contain image nagivation data
+  // In the ancillary text header, in addition to the Image Navigation
+  // Header. The data in the ancillary text header is more accurate,
+  // so use that if it is present.
+  double xScaleFactor_{std::numeric_limits<double>::quiet_NaN()};
+  double yScaleFactor_{std::numeric_limits<double>::quiet_NaN()};
+  double xStartBound_{std::numeric_limits<double>::quiet_NaN()};
+  double yStartBound_{std::numeric_limits<double>::quiet_NaN()};
+  double perspectivePointHeight_{std::numeric_limits<double>::quiet_NaN()};
 };
 
 class GOESRImageHandler : public Handler {

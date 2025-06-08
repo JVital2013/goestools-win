@@ -135,6 +135,56 @@ GOESRProduct::GOESRProduct(const std::shared_ptr<const lrit::File>& f)
       continue;
     }
 
+    if (key == "x_scale_factor") {
+      try {
+        xScaleFactor_ = std::stod(split(value, ' ')[0]);
+      }
+      catch(std::exception &){
+        FAILM("Unable to extract x scale factor from \"", value, "\"");
+      }
+      continue;
+    }
+
+    if (key == "y_scale_factor") {
+      try {
+        yScaleFactor_ = std::stod(split(value, ' ')[0]);
+      }
+      catch(std::exception &){
+        FAILM("Unable to extract y scale factor from \"", value, "\"");
+      }
+      continue;
+    }
+
+    if (key == "x_image_bounds") {
+      try {
+        xStartBound_ = std::stod(split(value, ' ')[0]);
+      }
+      catch(std::exception &){
+        FAILM("Unable to extract x start bound from \"", value, "\"");
+      }
+      continue;
+    }
+
+    if (key == "y_image_bounds") {
+      try {
+        yStartBound_ = std::stod(split(value, ' ')[0]);
+      }
+      catch(std::exception &){
+        FAILM("Unable to extract y start bound from \"", value, "\"");
+      }
+      continue;
+    }
+
+    if (key == "perspective_point_height") {
+      try {
+        perspectivePointHeight_ = std::stod(split(value, ' ')[0]);
+      }
+      catch(std::exception &){
+        FAILM("Unable to extract perspective point height from \"", value, "\"");
+      }
+      continue;
+    }
+
     // New keys were added to this map which tripped this assert.
     // Started happening on Apr 2, 2020. If these contain useful
     // information, we can choose to properly process them at a
@@ -600,8 +650,18 @@ void GOESRImageHandler::overlayMaps(const GOESRProduct& product, cv::Mat& mat) {
     lon = -137.0;
   }
 
+  // Use data from the ancillary text header if it was available
+  auto columnOffset = product.getComputedColumnOffset();
+  auto lineOffset = product.getComputedLineOffset();
+  auto xMetersPerPx = product.getXMetersPerPx();
+  auto yMetersPerPx = product.getYMetersPerPx();
+
   // TODO: The map drawer should be cached by construction parameters.
-  auto drawer = MapDrawer(&config_, lon, inh);
-  mat = drawer.draw(mat);
+  if (std::isnan(columnOffset) || std::isnan(lineOffset) || std::isnan(xMetersPerPx) || std::isnan(yMetersPerPx)) {
+    mat = MapDrawer(&config_, lon, inh).draw(mat);
+  }
+  else {
+    mat = MapDrawer(&config_, lon, columnOffset, lineOffset, xMetersPerPx, yMetersPerPx).draw(mat);
+  }
 #endif
 }

@@ -15,13 +15,75 @@ Proj longitudeToProj(float longitude) {
 
 } // namespace
 
+// This magical constant is used to scale the columnScaling and
+// lineScaling values from the LRIT image navigation header to the
+// range where they are usable with the proj projections. It is
+// only used when more accurate image navigation data is not
+// available in the Ancillary Text Record.
+//
+// It is derived as follows: first, we must calculate the exact
+// meters per pixel at nadir for a GOES-R full disk image, as a
+// reference point. The full-disk images are usually described as
+// 2km per pixel, but if we look at the Ancillary Text Header, we
+// find the following values:
+//
+//   perspective_point_height = 35786023 meters
+//   x_scale_factor = 0.000056000 radians
+//
+// By multiplying perspective_point_height with x_scale_factor, we
+// get an actual value of 2004.017288 meters per pixel. Now, The proj
+// projections return 1m per pixel resolution. To map one into the
+// other, we can simply divide the proj projection by 2004.017288.
+//
+// Next, the LRIT spec at
+// https://www.cgms-info.org/documents/pdf_cgms_03.pdf defines the
+// column and line coordinates as follows:
+//
+//   c = COFF + nint(x * 2^-16 * CFAC);
+//   l = LOFF + nint(y * 2^-16 * LFAC);
+//
+// With both CFAC and LFAC equal to 20425338 for the ABI full disk
+// images, we can derive our magical constant as follows:
+//
+//   GEOS_CONST = (20425338.0 * 2004.017288) / 0x10000)
+//
+// The 0x10000 divisor is removed from the computations below (and
+// multiplication added to the offsets), such that there at 16
+// fractional bits in the resulting coordinates that OpenCV can
+// use for better anti-aliasing of the lines it draws.
+//
+#define GEOS_CONST 624583.8999213157
+
 MapDrawer::MapDrawer(
   const Config::Handler* config,
   float longitude,
   lrit::ImageNavigationHeader inh)
   : config_(config),
     proj_(longitudeToProj(longitude)),
-    inh_(inh) {
+    columnOffset_(0x10000 * inh.columnOffset),
+    lineOffset_(0x10000 * inh.lineOffset),
+    columnMultiplier_(inh.columnScaling / GEOS_CONST),
+    lineMultiplier_(inh.lineScaling / GEOS_CONST) {
+  setup();
+}
+
+MapDrawer::MapDrawer(
+  const Config::Handler* config,
+  float longitude,
+  double columnOffset,
+  double lineOffset,
+  double columnScaling,
+  double lineScaling)
+  : config_(config),
+    proj_(longitudeToProj(longitude)),
+    columnOffset_(0x10000 * columnOffset),
+    lineOffset_(0x10000 * lineOffset),
+    columnMultiplier_(0x10000 / columnScaling),
+    lineMultiplier_(0x10000 / lineScaling){
+  setup();
+}
+
+void MapDrawer::setup() {
   const auto& maps = config_->maps;
   points_.resize(maps.size());
   for (size_t i = 0; i < maps.size(); i++) {
@@ -49,40 +111,8 @@ void MapDrawer::generatePoints(
       continue;
     }
 
-    // This magical constant is used to scale the columnScaling and
-    // lineScaling values from the LRIT image navigation header to the
-    // range where they are usable with the proj projections.
-    //
-    // It was calculated as follows: the LRIT spec at
-    // https://www.cgms-info.org/documents/pdf_cgms_03.pdf defines the
-    // column and line coordinates as follows:
-    //
-    //   c = COFF + int(x * 2^-16 * CFAC);
-    //   l = LOFF + int(y * 2^-16 * LFAC);
-    //
-    // We know that for the ABI full disk images on GOES-16 there is a
-    // 2km per pixel resolution at nadir. The proj projections return
-    // 1m per pixel resolution. To map one into the other, we can
-    // simply multiply the proj projection by 0.0005 (though 0.000499
-    // looks to be more accurate by visual inspection).
-    //
-    // With both CFAC and LFAC equal to 20425862 for the ABI full disk
-    // images, we can derive our magical constant as follows:
-    //
-    //   k = 20425862.0 / (0.000499 * 0x10000)
-    //
-    // The 0x10000 divisor is removed from the computations below (and
-    // multiplication added to the offsets), such that there at 16
-    // fractional bits in the resulting coordinates that OpenCV can
-    // use for better anti-aliasing of the lines it draws.
-    //
-    constexpr float k = 624597.0334223134;
-    auto columnScaling = inh_.columnScaling / k;
-    auto lineScaling = inh_.lineScaling / k;
-    auto columnOffset = inh_.columnOffset;
-    auto lineOffset = inh_.lineOffset;
-    auto c = (0x10000 * columnOffset) + int(x * columnScaling);
-    auto l = (0x10000 * lineOffset) - int(y * lineScaling);
+    auto c = columnOffset_ + x * columnMultiplier_;
+    auto l = lineOffset_ - y * lineMultiplier_;
     points.emplace_back(c, l);
   }
 
