@@ -91,7 +91,7 @@ void FileWriter::writeHeader(const lrit::File& file, const std::string& path) {
 }
 
 bool FileWriter::tryWrite(const std::string& path) {
-  struct stat st;
+  struct _stat64 st;
 
   auto rpos = path.rfind('/');
   if(rpos == std::string::npos) rpos = path.rfind('\\');
@@ -100,7 +100,7 @@ bool FileWriter::tryWrite(const std::string& path) {
     mkdirp(path.substr(0, rpos));
   }
 
-  auto rv = stat(path.c_str(), &st);
+  auto rv = _stat64(path.c_str(), &st);
   if (rv < 0 && errno == ENOENT) {
     return true;
   }

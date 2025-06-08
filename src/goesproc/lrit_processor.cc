@@ -17,8 +17,8 @@ void LRITProcessor::run(int argc, char** argv) {
 
   // Gather files from arguments (globs *.lrit* in directories).
   for (int i = 0; i < argc; i++) {
-    struct stat st;
-    auto rv = stat(argv[i], &st);
+    struct _stat64 st;
+    auto rv = _stat64(argv[i], &st);
     if (rv < 0) {
       perror("stat");
       exit(1);

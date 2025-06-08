@@ -264,8 +264,8 @@ int main(int argc, char** argv) {
   }
 
   for (auto i = optind; i < argc; i++) {
-    struct stat st;
-    auto rv = stat(argv[i], &st);
+    struct _stat64 st;
+    auto rv = _stat64(argv[i], &st);
     if (rv < 0) {
       fprintf(stderr, "%s: %s\n", argv[i], strerror(errno));
       exit(1);

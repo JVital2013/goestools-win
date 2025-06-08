@@ -90,9 +90,9 @@ Options parseOptions(int argc, char** argv) {
 
   // Require configuration to be a regular file
   {
-    struct stat st;
+    struct _stat64 st;
     const char* error = nullptr;
-    auto rv = stat(opts.config.c_str(), &st);
+    auto rv = _stat64(opts.config.c_str(), &st);
     if (rv < 0) {
       error = strerror(errno);
     } else {

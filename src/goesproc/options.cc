@@ -127,9 +127,9 @@ Options parseOptions(int& argc, char**& argv) {
 
   // Require configuration to be a regular file
   {
-    struct stat st;
+    struct _stat64 st;
     const char* error = nullptr;
-    auto rv = stat(opts.config.c_str(), &st);
+    auto rv = _stat64(opts.config.c_str(), &st);
     if (rv < 0) {
       error = strerror(errno);
     } else {
@@ -179,8 +179,8 @@ Options parseOptions(int& argc, char**& argv) {
       // present inside that directory.
       std::vector<std::string> files;
       for (const auto& path : opts.paths) {
-        struct stat st;
-        auto rv = stat(path.c_str(), &st);
+        struct _stat64 st;
+        auto rv = _stat64(path.c_str(), &st);
         if (rv < 0) {
           perror("stat");
           exit(1);
