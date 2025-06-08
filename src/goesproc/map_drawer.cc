@@ -2,19 +2,6 @@
 
 using namespace nlohmann;
 
-namespace {
-
-Proj longitudeToProj(float longitude) {
-  std::map<std::string, std::string> args;
-  args["proj"] = "geos";
-  args["h"] = "35786023.0";
-  args["lon_0"] = std::to_string(longitude);
-  args["sweep"] = "x";
-  return Proj(args);
-}
-
-} // namespace
-
 // This magical constant is used to scale the columnScaling and
 // lineScaling values from the LRIT image navigation header to the
 // range where they are usable with the proj projections. It is
@@ -23,7 +10,7 @@ Proj longitudeToProj(float longitude) {
 //
 // It is derived as follows: first, we must calculate the exact
 // meters per pixel at nadir for a GOES-R full disk image, as a
-// reference point. The full-disk images are usually described as
+// reference scale. The full-disk images are usually described as
 // 2km per pixel, but if we look at the Ancillary Text Header, we
 // find the following values:
 //
@@ -31,7 +18,7 @@ Proj longitudeToProj(float longitude) {
 //   x_scale_factor = 0.000056000 radians
 //
 // By multiplying perspective_point_height with x_scale_factor, we
-// get an actual value of 2004.017288 meters per pixel. Now, The proj
+// get an actual value of 2004.017288 meters per pixel. The proj
 // projections return 1m per pixel resolution. To map one into the
 // other, we can simply divide the proj projection by 2004.017288.
 //
@@ -45,14 +32,54 @@ Proj longitudeToProj(float longitude) {
 // With both CFAC and LFAC equal to 20425338 for the ABI full disk
 // images, we can derive our magical constant as follows:
 //
-//   GEOS_CONST = (20425338.0 * 2004.017288) / 0x10000)
+//   GEOS_CONST = (20425338.0 * 2004.017288) / 0x10000
+//   GEOS_CONST = 624583.8999213157
 //
 // The 0x10000 divisor is removed from the computations below (and
 // multiplication added to the offsets), such that there at 16
 // fractional bits in the resulting coordinates that OpenCV can
 // use for better anti-aliasing of the lines it draws.
 //
+// It should be noted that while 624583.8999213157 is the best
+// value to use here, it is not completely accurate. This
+// calculation is using CFAC/LFAC as they are transmitted in the
+// image navigation header. Since GEOS_CONST is only used when
+// only the ancillary text header is not available, it's the best
+// reference point we can use since it is consistent with the
+// data we will be processing.
+//
+// However, if we wanted to use a similar constant for use with
+// data derived from the more accurate ancillary text header, we
+// should re-calculate CFAC/LFAC to get a more accurate constant.
+// CFAC/LFAC can be accurately computed as such:
+//
+//   CFAC = 0x10000 / (0.000056 * (180 / pi))
+//   CFAC = 20425338.9
+//
+// Now, we can re-compute GEOS_CONST:
+//
+//   GEOS_CONST = (20425338.9 * 2004.017288) / 0x10000
+//   GEOS_CONST = 624583.9274423050
+//
+// This other GEOS_CONST is only documented here for completeness,
+// and is not currently used. If the const is used with otherwise
+// accurate image navigation data, it should be switched to
+// 624583.9274423050. The difference between the two is small, but
+// it does adjust the correct placement of a few pixels.
 #define GEOS_CONST 624583.8999213157
+
+namespace {
+
+Proj longitudeToProj(float longitude) {
+  std::map<std::string, std::string> args;
+  args["proj"] = "geos";
+  args["h"] = "35786023.0";
+  args["lon_0"] = std::to_string(longitude);
+  args["sweep"] = "x";
+  return Proj(args);
+}
+
+} // namespace
 
 MapDrawer::MapDrawer(
   const Config::Handler* config,
